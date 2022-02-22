@@ -1,2 +1,6 @@
 .chart {
+  border: 1px solid #aaa;
+  display: block;
+  height: 100%;
+  width: 100%;
 }
