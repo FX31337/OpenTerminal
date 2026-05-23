@@ -27,6 +27,6 @@ permissions:
   contents: read
 jobs:
   check:
-    uses: FX31337/.github/.github/workflows/check.yml@main
+    uses: FX31337/.github/.github/workflows/check.yml@master
     with:
       submodules: ${{ inputs.submodules || 'false' }}
