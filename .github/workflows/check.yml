@@ -1,25 +1,32 @@
 ---
+# Note: Keep keys and envs in alphabetical order.
 name: Check
-
 # yamllint disable-line rule:truthy
 on:
   pull_request:
-    branches:
-      - master
-      - dev
   push:
-    branches:
-      - master
-      - dev
-
+  schedule:
+    - cron: 0 0 * * 1  # Run every Monday at 00:00 UTC
+  workflow_dispatch:
+    inputs:
+      submodules:
+        default: 'false'
+        description: 'Whether to checkout submodules: true, false, or recursive'
+        options:
+          - 'false'
+          - 'true'
+          - recursive
+        required: false
+        type: choice
+  workflow_run:
+    workflows:
+      - Cogni AI Agent
+    types:
+      - completed
+permissions:
+  contents: read
 jobs:
-  Pre-commit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1
-        with:
-          path: ~/.cache/pre-commit
-          key: pre-commit|${{ hashFiles('.pre-commit-config.yaml') }}
-      - uses: actions/setup-python@v1
-      - uses: pre-commit/action@v2.0.3
+  check:
+    uses: FX31337/.github/.github/workflows/check.yml@main
+    with:
+      submodules: ${{ inputs.submodules || 'false' }}
