@@ -1,5 +1,5 @@
 ---
-name: Check — PR Comment
+name: Check - PR Comment
 # yamllint disable-line rule:truthy
 on:
   workflow_run:
